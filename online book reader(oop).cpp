@@ -2,7 +2,6 @@
 #include <string>
 #include <vector>
 #include <ctime>
-#include<fstream>
 using namespace std;
 
 class books;
@@ -61,7 +60,7 @@ public:
         cout << "Hello " << u.name << "| User view\n";
         v_user.push_back(u);
     }
-    //problem here
+
     void Log_In()
     {
         cout << "Enter Your User Name: ";
@@ -102,7 +101,7 @@ public:
     }
 
     //void menu_user();
-    //a problem here  in empty name,gamil and password 
+
     void View_Profile()
     {
         cout << "Name : " << name << '\n';
@@ -113,21 +112,30 @@ public:
     void time_date()
     {
         time_t now = time(0);
-        tm* local_time = localtime(&now);
-        cout << (local_time->tm_year + 1900) << '-'
-            << (local_time->tm_mon + 1) << '-'
-            << local_time->tm_mday << " "
-            << local_time->tm_hour << ':'
-            << local_time->tm_min << ':'
-            << local_time->tm_sec << endl;
+        tm local_time;
+        localtime_s(&local_time, &now); 
+
+        cout << (local_time.tm_year + 1900) << '-'
+            << (local_time.tm_mon + 1) << '-'
+            << local_time.tm_mday << " "
+            << local_time.tm_hour << ':'
+            << local_time.tm_min << ':'
+            << local_time.tm_sec << endl;
     }
 
+    void select_choose_from_history() 
+{
+        for (int j = 0; j < reading.size(); j++)
+        {
+            cout << j + 1 << ". " << reading[j] << endl;
+            time_date();
+        }
+    }
 
     void select_choose_from_available()
     {
         cout << "The books in our system: \n";
-        for (int i = 0; i < b_books.size(); i++)
-        {
+        for (int i = 0; i < b_books.size(); i++) {
             cout << "[" << i + 1 << "] " << b_books[i].title << '\n';
         }
 
@@ -171,14 +179,6 @@ public:
             }
         }
     }
-    void select_choose_from_history()
-    {
-        for (int j = 0; j < reading.size(); j++)
-        {
-            cout << j + 1 << ". " << reading[j] << "page :" << c_page << endl;
-            time_date();
-        }
-    }
 
     void Log_out()
     {
@@ -211,13 +211,13 @@ public:
         {
             Log_out();
         }
-        else
+        else 
         {
             cout << "Invalid choice, try again\n";
         }
     }
 };
-//perfect without the check of log in and not done when incorrect
+
 class Admin : public books
 {
 public:
@@ -249,7 +249,7 @@ public:
             cout << "Invalid choice, try again\n";
         }
     }
-    //problem here in checking
+
     void log_in()
     {
         cout << "Name: ";
@@ -257,10 +257,11 @@ public:
         cout << "Password: ";
         cin >> pass;
         if (name_ad == pass)
-        { 
+        {
             cout << "Hello " << name_ad << " | Admin view\n";
         }
-        else {
+        else
+        {
             cout << "Incorrect admin credentials\n";
         }
     }
@@ -281,7 +282,6 @@ public:
         cout << "[2] Sign Up\n";
         int ch;
         cin >> ch;
-
         if (ch == 1)
         {
             log_in();
@@ -292,7 +292,7 @@ public:
             sign_up();
             menu_two();
         }
-        else
+        else 
         {
             cout << "Invalid choice, try again\n";
         }
@@ -305,7 +305,7 @@ Admin admin;
 void System()
 {
     while (true)
-    {
+        {
         cout << "You're the admin or user?\n";
         cout << "[1] Admin\n";
         cout << "[2] User\n";
@@ -320,8 +320,8 @@ void System()
             new_user.menu();
             new_user.menu_user();
         }
-        else
-{
+        else 
+        {
             cout << "Invalid choice, try again\n";
         }
     }
