@@ -421,8 +421,8 @@ int main()
     System();
     return 0;
 }
+//not done the project
 //the problems
-//divide and conquer
 //not print the name or email after the view profile
 //more restriction on the data to be more secure
 //maping the pages in the books
