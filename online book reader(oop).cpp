@@ -58,12 +58,6 @@ public:
     string name, password, email, username;
     vector<string> reading;
 
-    void View_Profile()
-    {
-        cout << "Name : " << name << '\n';
-        cout << "Password : " << password << '\n';
-        cout << "Email : " << email << '\n';
-    }
 
     User() {}
 
