@@ -290,8 +290,8 @@ public:
         {
             cout << "----------------------------------------\n";
             cout << "You are :\n";
-            cout << "[1] Admin\n";
-            cout << "[2] User\n";
+             cout <<setw(5)<< "[1] Admin\n";
+            cout << setw(5)<< "[2] User\n";
             cout << "----------------------------------------\n";
             int choice = 0;cin >> choice;
             if (choice == 1)
@@ -299,8 +299,8 @@ public:
                 admin.LogIn();
                 cout << "Hello ! Manar Elhabbal " << "| Admin view\n";
                 cout << "----------------------------------------\n";
-                cout << "[1] view my profile\n";
-                cout << "[2] Add a new book\n";
+                cout << setw(5)<<"[1] view my profile\n";
+                cout << setw(5)<<"[2] Add a new book\n";
                 cout << "----------------------------------------\n";
                 int choose = 0;cin >> choose;
                 if (choose == 1)
@@ -319,9 +319,9 @@ public:
             else if (choice == 2)
             {
                 cout << "Main Menu:\n";
-                cout << "[1] Sign Up\n";
-                cout << "[2] Log In\n";
-                cout << "choose from[1-2] :";
+                cout << setw(5)<<"[1] Sign Up\n";
+                cout << setw(5)<<"[2] Log In\n";
+                cout << setw(5)<< "choose from[1-2] :";
                 int ch = 0;cin >> ch;
                 if (ch == 1)
                 {
