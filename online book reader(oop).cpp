@@ -97,7 +97,7 @@ public:
             LogIn();
         }
     }
-
+    //why is not print the info
     void ViewProfile()
     {
         cout << "Name : " << name << '\n';
@@ -149,12 +149,14 @@ public:
         cout << "The books in our system:\n";
         for (size_t i = 0; i < books.size(); ++i)
         {
-            cout << "[" << i + 1 << "] " << books[i].title << " ISBN : " << books[i].ISBN << '\n';
+            cout << "[" << i + 1 << "] " << books[i].title << " ISBN : " << books[i].ISBN << " Author : "<<books[i].author_name<<'\n';
         }
 
         int number_book;
-        cout << "Which book to read? (enter the ISBN corresponding to the book): ";
+        cout << "Which book to read? (enter the number corresponding to the book): ";
         cin >> number_book;
+
+       
 
         if (number_book < 1 || number_book > books.size())
         {
@@ -201,6 +203,7 @@ public:
 
     void SelectChooseFromHistory()
     {
+        //why this is empty after reading
         if (reading.empty())
         {
             cout << "You have no reading history.\n";
@@ -215,7 +218,7 @@ public:
         }
     }
 
-    void Menu()
+    void Menu(User &user)
     {
         cout << "Menu User\n";
         cout << setw(5) << "[1] View profile\n";
@@ -323,13 +326,13 @@ public:
                 if (ch == 1)
                 {
                     user.SignUp();
-                    Menu();
+                    Menu(user);
                 }
                 else if (ch == 2)
                 {
                     user.LogIn();
                     logged_in = true;
-                    Menu();
+                    Menu(user);
                 }
                 else
                 {
@@ -340,7 +343,7 @@ public:
 
             if (logged_in)
             {
-                user.Menu();
+                user.Menu(user);
             }
         }
     }
@@ -355,5 +358,5 @@ int main()
 }
 //the problems are these
 //the first is not printed the info after view profile of user
-//the second when ask to show the history
+//the second when ask to show the history this is shown as empty
 //mapping the pages
