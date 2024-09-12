@@ -36,6 +36,10 @@ public:
         file.close();
         cout << "Book added successfully!" << endl;
     }
+    void remove_book()
+    {
+
+    }
 };
 
 class User
@@ -44,12 +48,13 @@ public:
     string name, password, email, username;
     int c_page = 1;
     vector<string> reading;
+ 
 
     User() {}
 
     User(string name, string password, string email, string username)
         : name(name), password(password), email(email), username(username) {}
-
+    //setters and getters
     void SignUp()
     {
         cout << "Enter your username (no spaces): ";
@@ -86,11 +91,12 @@ public:
                 name = n;
                 email = e;
                 password = p;
+               
                 found = true;
                 break;
             }
         }
-
+        
         lg.close();
         if (!found)
         {
@@ -99,10 +105,12 @@ public:
         }
     }
     //why is not print the info
+    
+
     void ViewProfile()
     {
-        cout << "Name : " << name << '\n';
-        cout << "Password : " << password << '\n';
+        cout << "Name : " << name<< '\n';
+        cout << "Password : " << password<< '\n';
         cout << "Email : " << email << '\n';
     }
 
@@ -285,6 +293,11 @@ public:
         Book b;
         b.addBook();
     }
+    void remove_book()
+    {
+        Book c;
+        c.remove_book();
+    }
 };
 class System:public Admin,public User
 {
@@ -309,8 +322,9 @@ public:
                 admin.LogIn();
                 cout << "Hello ! Manar Elhabbal " << "| Admin view\n";
                 cout << "----------------------------------------\n";
-                cout << setw(5)<<"[1] view my profile\n";
+                cout << setw(5)<<"[1] View my profile\n";
                 cout << setw(5)<<"[2] Add a new book\n";
+                cout << setw(5)<<"[3] Remove a book\n";
                 cout << "----------------------------------------\n";
                 int choose = 0;cin >> choose;
                 if (choose == 1)
@@ -320,6 +334,10 @@ public:
                 else if (choose == 2)
                 {
                     admin.AddBook();
+                }
+                else if (choose == 3)
+                {
+                    admin.remove_book();
                 }
                 else
                 {
@@ -367,6 +385,5 @@ int main()
     return 0;
 }
 //the problems are these
-//the first is not printed the info after view profile of user
-//the second when ask to show the history this is shown as empty
+//the first is not printed the info after view profile of user sometimes yes and sometimes no
 //mapping the pages
