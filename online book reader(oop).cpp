@@ -85,6 +85,7 @@ public:
                 cout << "Hello " << username << " | User view" << endl;
                 name = n;
                 email = e;
+                password = p;
                 found = true;
                 break;
             }
@@ -123,7 +124,7 @@ public:
             << setw(2) << setfill('0') << local_time.tm_min << ':'
             << setw(2) << setfill('0') << local_time.tm_sec << " " << am_pm << endl;
     }
-
+    map<string, int> reading_history;
     void SelectChooseFromAvailable()
     {
         ifstream file("databaseforbooks.txt");
@@ -155,8 +156,9 @@ public:
         int number_book;
         cout << "Which book to read? (enter the number corresponding to the book): ";
         cin >> number_book;
-
-       
+        reading_history[books[number_book - 1].title] = 1;
+       // reading.push_back(books[number_book - 1].title)=1;
+        
 
         if (number_book < 1 || number_book > books.size())
         {
@@ -165,7 +167,7 @@ public:
         }
 
         cout << "Now, you are reading: ( " << books[number_book - 1].title<<" )" << endl;
-        reading.push_back(books[number_book - 1].title);
+        //reading.push_back(books[number_book - 1].title);
         c_page = 1;
 
         cout << "Current Page [1/" << books[number_book - 1].pages << "]\n";
@@ -183,11 +185,13 @@ public:
             if (cho == 1 && c_page < books[number_book - 1].pages)
             {
                 c_page++;
+                reading_history[books[number_book - 1].title] = c_page;
                 cout << "Page: " << c_page << '\n';
             }
             else if (cho == 2 && c_page > 1)
             {
                 c_page--;
+                reading_history[books[number_book - 1].title] = c_page;
                 cout << "Page: " << c_page << '\n';
             }
             else if (cho == 3)
@@ -204,18 +208,24 @@ public:
     void SelectChooseFromHistory()
     {
         //why this is empty after reading
-        if (reading.empty())
+        if (reading_history.empty())
         {
             cout << "You have no reading history.\n";
             return;
         }
-
-        for (size_t j = 0; j < reading.size(); ++j)
+        for (const auto& entry : reading_history)
+        {
+            cout << "Book: " << entry.first << endl;
+            cout << "The page you stopped at [" << entry.second << "]\n";
+            TimeDate();
+            cout << "---------------------------------------\n";
+        }
+        /*for (size_t j = 0; j < reading.size(); ++j)
         {
             cout << j + 1 << ". " << reading[j] << endl;
             cout << "The page you stopped at [" << c_page << "]\n";
             TimeDate();
-        }
+        }*/
     }
 
     void Menu(User &user)
