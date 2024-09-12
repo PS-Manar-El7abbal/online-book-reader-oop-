@@ -4,6 +4,7 @@
 #include <ctime>
 #include <fstream>
 #include<iomanip>
+#include<map>
 using namespace std;
 
 class books;
@@ -22,40 +23,36 @@ public:
     books() {}
 
     books(string ISBN, string title, string author_name, int pages) : ISBN(ISBN), title(title), author_name(author_name), pages(pages) {}
+    
 
-    void add_book()
+    void add_book(const string& filename)
     {
-        ifstream add_book("databaseforbooks.txt");
         cout << "Enter ISBN : ";
-        add_book >> ISBN;
+        cin >> ISBN;
         cout << "Enter title : ";
-        add_book >> title;
+        cin >> title;
         cout << "Enter author name : ";
-        add_book >> author_name;
+        cin >> author_name;
         cout << "Enter how many pages : ";
-        add_book >> pages;
+        cin >> pages;
         b_books.push_back(*this);
 
-        ofstream add("databaseforbooks.txt", ios::app);
-        if (add.is_open())
-        {
-            add << ISBN << " " << title << " " << pages << " " << endl;
-            cout << '\a';
-            cout << "book added successfully\n";
-        }
-        else
-        {
-            cerr << "the file is not opened\n";
-        }
+        map<string, int>title_current_page;
 
-        add.close();
+        ofstream file("databaseforbooks.txt", ios::app);  
+        file << title << " " << author_name << '\n';
+        file.close();
+        cout << "Book added successfully!" << endl;
     }
+
+   
 };
 
-class User
+class User:public books
 {
 public:
     string name, password, email, username;
+    int c_page = 1;
     vector<string> reading;
 
 
@@ -179,23 +176,48 @@ public:
 
     void select_choose_from_available()
     {
-
-        if (!b_books.empty())
-        {
+         cout << "For debugging :" << b_books.size() << endl;
+         ifstream file("databaseforbooks.txt");
+         if (b_books.size() == 0)
+         {
+             cout << "The system has not any books, sorry try latter\n";
+             System();
+         }
+         else
+         {
+            
+           
             cout << "The books in our system: \n";
+            
             for (int i = 0; i < b_books.size(); i++)
             {
-                cout << "[" << i + 1 << "] " << b_books[i].title << '\n';
+                cout << "[" << i + 1 << "] " << b_books[i].title<<" ISBN : "<<b_books[i].ISBN << '\n';
             }
             cout << "Which book to read? (from 1 to " << b_books.size() << "): ";
+            cout << "please enter the isbn of this book : ";
             int number_book;
-            cin >> number_book;
-
+            while (file >> number_book)
+            {
+                for (int j = 0;j < b_books.size();j++)
+                {
+                    if (number_book == b_books[j].ISBN)
+                    {
+                        cout << "Now ,you are reading : ";
+                        cout << b_books[j].title << endl;
+                    }
+                    else
+                    {
+                        cout << "invalid isbn try again\n";
+                        menu_user();
+                    }
+                }
+               
+            }
             reading.push_back(b_books[number_book - 1].title);
 
-            int c_page = 1;
+            //int c_page = 1;
             cout << "Current Page [1/" << b_books[number_book - 1].pages << "]\n";
-            int current_page = 0;
+          
             while (true)
             {
                 //maping pages
@@ -225,14 +247,11 @@ public:
                 {
                     cout << "Invalid choice\n";
                 }
-                current_page = c_page;
+                
             }
         }
-        else
-        {
-            cout << "The system has not any books, sorry try latter\n";
-        }
-
+       
+         
     }
 
     void select_choose_from_history()
@@ -240,9 +259,10 @@ public:
         for (int j = 0; j < reading.size(); j++)
         {
             cout << j + 1 << ". " << reading[j] << endl;
+            //this is not done why?
+            cout << "the page you have stopped at [" << c_page << " ]" << endl;
             time_date();
-            //here error not be handeled the number of the page the reader has stopped
-           // cout << "You stopped at page " << c_page << endl;
+          
         }
     }
 
@@ -297,6 +317,7 @@ public:
     void System();
     void menu_two()
     {
+       //i wanna need to add option to remove the book
         cout << "Menu\n";
         cout << setw(5) << "[1] View profile\n";
         cout << setw(5) << "[2] Add books\n";
@@ -309,7 +330,8 @@ public:
         }
         else if (choice_menu == 2)
         {
-            add_book();
+            
+            add_book("databaseforbooks.txt");
         }
         else if (choice_menu == 3)
         {
@@ -362,6 +384,7 @@ public:
         cout << "Menu\n";
         cout << setw(5) << "[1] Log in\n";
         cout << setw(5) << "[2] Sign Up\n";
+        cout << setw(5) << "[3] Back\n";
         int ch;
         cin >> ch;
         if (ch == 1)
@@ -373,6 +396,10 @@ public:
         {
             sign_up();
             menu_two();
+        }
+        else if (ch == 3)
+        {
+            System();
         }
         else
         {
@@ -415,11 +442,9 @@ int main()
     System();
     return 0;
 }
-//the project is still updated 
 //the problems
 //not print the name or email after the view profile
 //more restriction on the data to be more secure
-//maping the pages in the books
-//add back option 
+//maping the pages in the books and to show the page you stopped at
 //database for books
-//why the file for reading books not print in the text file here
+//if the system is empty say the system is empty and this also for the history of the user
