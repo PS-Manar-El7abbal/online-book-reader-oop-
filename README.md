@@ -25,6 +25,7 @@ In this project i used oop consepts and i tried my best to enhance my design ski
 - `main.cpp` - Main codebase for the Online Book Reader application.
 - `databaseforbooks.txt` - Stores book details.
 - `database.txt` - Stores user credentials and profile information.
+- - `databaseforadmin.txt` - Stores admin credentials and profile information.
 
 ## About Me
 
