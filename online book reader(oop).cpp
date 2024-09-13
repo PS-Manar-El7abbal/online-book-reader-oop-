@@ -14,7 +14,7 @@ class Book
 public:
     string ISBN, title, author_name;
     int pages;
-
+    vector<Book>bo;
     Book() {}
 
     Book(string ISBN, string title, string author_name, int pages) : ISBN(ISBN), title(title), author_name(author_name), pages(pages) {}
@@ -36,10 +36,51 @@ public:
         file.close();
         cout << "Book added successfully!" << endl;
     }
-    void remove_book()
+    void remove_book() 
     {
+        string ISBN_to_remove;
+        cout << "Enter the ISBN of the book you want to remove: ";
+        cin >> ISBN_to_remove;
 
+        
+        vector<Book> books;
+        ifstream file("databaseforbooks.txt");
+        string ISBN, title, author_name;
+        int pages;
+
+        while (file >> ISBN >> ws) 
+        {
+            getline(file, title, ' ');
+            getline(file, author_name, ' ');
+            file >> pages;
+            books.emplace_back(ISBN, title, author_name, pages);
+        }
+        file.close();
+
+       
+        auto it = remove_if(books.begin(), books.end(), [&](const Book& book)  {  return book.ISBN == ISBN_to_remove; });
+
+        if (it != books.end())
+        {
+            books.erase(it, books.end());
+            cout << "Book removed successfully.\n";
+        }
+        else
+        {
+            cout << "Book not found.\n";
+            return;
+        }
+
+        //the updated info
+        ofstream outfile("databaseforbooks.txt");
+        for (const auto& book : books)
+        {
+            outfile << book.ISBN << " " << book.title << " " << book.author_name << " " << book.pages << '\n';
+        }
+        outfile.close();
     }
+
+    
 };
 
 class User
@@ -48,13 +89,15 @@ public:
     string name, password, email, username;
     int c_page = 1;
     vector<string> reading;
- 
+    vector<User> users;
 
     User() {}
 
-    User(string name, string password, string email, string username)
+   User(string name, string password, string email, string username)
         : name(name), password(password), email(email), username(username) {}
-    //setters and getters
+    //setters and getters if the variables are private
+
+
     void SignUp()
     {
         cout << "Enter your username (no spaces): ";
@@ -66,13 +109,14 @@ public:
         getline(cin, name);
         cout << "Enter Your email: ";
         cin >> email;
-
+        users.push_back(User(username, password, name, email));
         ofstream reg("database.txt", ios::app);
         reg << username << " " << password << " " << name << " " << email << endl;
         reg.close();
         cout << "Hello " << name << " | User view\n";
     }
 
+    
     void LogIn()
     {
         string u, p, n, e;
@@ -104,14 +148,15 @@ public:
             LogIn();
         }
     }
-    //why is not print the info
-    
 
+    //the first problem
+    
     void ViewProfile()
-    {
-        cout << "Name : " << name<< '\n';
-        cout << "Password : " << password<< '\n';
-        cout << "Email : " << email << '\n';
+    {        
+          cout << "Name : " << name << '\n';
+          cout << "Password : " << password << '\n';
+          cout << "Email : " << email << '\n';       
+       
     }
 
     void TimeDate()
@@ -132,6 +177,7 @@ public:
             << setw(2) << setfill('0') << local_time.tm_min << ':'
             << setw(2) << setfill('0') << local_time.tm_sec << " " << am_pm << endl;
     }
+
     map<string, int> reading_history;
     void SelectChooseFromAvailable()
     {
@@ -212,10 +258,10 @@ public:
             }
         }
     }
-
+    // the second problem
     void SelectChooseFromHistory()
     {
-        //why this is empty after reading
+       
         if (reading_history.empty())
         {
             cout << "You have no reading history.\n";
@@ -249,6 +295,7 @@ public:
         if (choice_menu_user == 1)
         {
             ViewProfile();
+            
         }
         else if (choice_menu_user == 2)
         {
@@ -386,4 +433,9 @@ int main()
 }
 //the problems are these
 //the first is not printed the info after view profile of user sometimes yes and sometimes no
-//mapping the pages
+//the history of the sessions
+
+
+//new things i learned
+//time function
+//remove ,read and add to a file
