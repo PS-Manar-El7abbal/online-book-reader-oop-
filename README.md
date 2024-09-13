@@ -29,11 +29,11 @@ In this project i used oop consepts and i tried my best to enhance my design ski
 
 ## About Me
 
- I am manar elhabbal competitve programmer , maths passionate . 
- Junior back_end developer.
- I enjoy solving complex problems and am always eager to learn and improve my skills.
+ I am manar elhabbal competitve programmer , maths passionate ☀. 
+ Junior back_end developer🔰.
+ I enjoy solving complex problems and am always eager to learn and improve my skills🥰 .
  My favourite quote and my rule in life is that 
- ## It is never too late
+ ## "It is never too late"💙
 
 
  
