@@ -129,7 +129,7 @@ public:
         ifstream lg("database.txt");
         while (lg >> u >> p >> n >> e)
         {
-            if (u == username && p == password)
+            if (u == username && p== password)
             {
                 cout << "Hello " << username << " | User view" << endl;
                 name = n;
@@ -149,14 +149,12 @@ public:
         }
     }
 
-    //the first problem
-    
     void ViewProfile()
     {        
-          cout << "Name : " << name << '\n';
-          cout << "Password : " << password << '\n';
-          cout << "Email : " << email << '\n';       
-       
+          cout << "User Name :" << username << '\n';
+          cout << "Name :" << name << '\n';
+          cout << "password: " << password<< '\n';
+          cout << "Email : " << email << '\n';            
     }
 
     void TimeDate()
@@ -433,7 +431,7 @@ int main()
 }
 //the problems are these
 //the first is not printed the info after view profile of user sometimes yes and sometimes no
-//the history of the sessions
+//the history of the sessions -->done
 
 
 //new things i learned
