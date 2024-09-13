@@ -95,7 +95,7 @@ public:
 
    User(string name, string password, string email, string username)
         : name(name), password(password), email(email), username(username) {}
-    //setters and getters if the variables are private
+    
 
 
     void SignUp()
@@ -209,7 +209,7 @@ public:
         cout << "Which book to read? (enter the number corresponding to the book): ";
         cin >> number_book;
         reading_history[books[number_book - 1].title] = 1;
-       // reading.push_back(books[number_book - 1].title)=1;
+     
         
 
         if (number_book < 1 || number_book > books.size())
@@ -219,7 +219,7 @@ public:
         }
 
         cout << "Now, you are reading: ( " << books[number_book - 1].title<<" )" << endl;
-        //reading.push_back(books[number_book - 1].title);
+        
         c_page = 1;
 
         cout << "Current Page [1/" << books[number_book - 1].pages << "]\n";
@@ -256,7 +256,7 @@ public:
             }
         }
     }
-    // the second problem
+    
     void SelectChooseFromHistory()
     {
        
@@ -272,12 +272,7 @@ public:
             TimeDate();
             cout << "---------------------------------------\n";
         }
-        /*for (size_t j = 0; j < reading.size(); ++j)
-        {
-            cout << j + 1 << ". " << reading[j] << endl;
-            cout << "The page you stopped at [" << c_page << "]\n";
-            TimeDate();
-        }*/
+        
     }
 
     void Menu(User &user)
@@ -435,11 +430,4 @@ int main()
   
     return 0;
 }
-//the problems are these
-//the first is not printed the info after view profile of user sometimes yes and sometimes no//done
-//the history of the sessions -->done
 
-
-//new things i learned
-//time function
-//remove ,read and add to a file
