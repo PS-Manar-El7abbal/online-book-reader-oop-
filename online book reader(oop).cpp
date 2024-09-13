@@ -343,6 +343,7 @@ public:
         Book c;
         c.remove_book();
     }
+    
 };
 class System:public Admin,public User
 {
@@ -360,6 +361,7 @@ public:
             cout << "You are :\n";
              cout <<setw(5)<< "[1] Admin\n";
             cout << setw(5)<< "[2] User\n";
+            cout << setw(5)<< "[3] Log out\n";
             cout << "----------------------------------------\n";
             int choice = 0;cin >> choice;
             if (choice == 1)
@@ -407,6 +409,10 @@ public:
                     logged_in = true;
                     Menu(user);
                 }
+                else if (ch == 3)
+                {
+                    exit(0);
+                }
                 else
                 {
                     cout << "invalid choice ,try again\n";
@@ -430,7 +436,7 @@ int main()
     return 0;
 }
 //the problems are these
-//the first is not printed the info after view profile of user sometimes yes and sometimes no
+//the first is not printed the info after view profile of user sometimes yes and sometimes no//done
 //the history of the sessions -->done
 
 
