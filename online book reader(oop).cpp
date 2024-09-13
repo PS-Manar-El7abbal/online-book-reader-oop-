@@ -292,16 +292,16 @@ public:
         cin >> choice_menu_user;
         if (choice_menu_user == 1)
         {
-            ViewProfile();
+            user.ViewProfile();
             
         }
         else if (choice_menu_user == 2)
         {
-            SelectChooseFromAvailable();
+            user.SelectChooseFromAvailable();
         }
         else if (choice_menu_user == 3)
         {
-            SelectChooseFromHistory();
+            user.SelectChooseFromHistory();
         }
         else if (choice_menu_user == 4)
         {
